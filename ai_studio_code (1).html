@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معلوماتي | المنصة التقنية الشاملة</title>
+    
+    <!-- خطوط جوجل -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&display=swap" rel="stylesheet">
+    
+    <!-- مكتبة الأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- مكتبة حركات التمرير -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #07090f;
+            --glass-bg: rgba(20, 25, 35, 0.4);
+            --text-main: #ffffff;
+            --text-muted: #8e9bb0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* خلفية الجسيمات */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: radial-gradient(circle at center, #111827 0%, #05070a 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* الهيدر الأسطوري */
+        header {
+            text-align: center;
+            margin-bottom: 70px;
+            padding-top: 40px;
+        }
+
+        .logo-icon {
+            font-size: 4rem;
+            color: #ffffff;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        h1.main-title {
+            font-size: 4.5rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2), 0 0 30px rgba(255, 255, 255, 0.4);
+        }
+
+        header p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* قسم المطور (تصميم مدمج وأنيق) */
+        .dev-badge-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 60px;
+        }
+
+        .dev-badge {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 15px 40px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .dev-badge span {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .dev-badge a {
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+            padding: 5px 15px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .dev-badge a:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        /* شبكة البوتات */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .bots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+            margin-bottom: 70px;
+        }
+
+        /* تصميم البطاقة السحرية (تعتمد على المتغير --bot-color) */
+        .bot-card {
+            background: linear-gradient(180deg, var(--glass-bg) 0%, rgba(10, 14, 23, 0.8) 100%);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 3px solid var(--bot-color);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* تأثير الإضاءة الخلفية للبطاقة */
+        .bot-card::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 100px;
+            background: var(--bot-color);
+            filter: blur(70px);
+            opacity: 0;
+            transition: 0.5s;
+            z-index: 0;
+        }
+
+        .bot-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--bot-color);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(var(--bot-color-rgb), 0.2);
+        }
+
+        .bot-card:hover::before {
+            opacity: 0.4;
+        }
+
+        .bot-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        .bot-icon {
+            font-size: 3.5rem;
+            color: var(--bot-color);
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 15px var(--bot-color));
+            transition: transform 0.4s ease;
+        }
+
+        .bot-card:hover .bot-icon {
+            transform: scale(1.15);
+        }
+
+        .bot-card h3 {
+            font-size: 1.6rem;
+            color: #fff;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .bot-username {
+            color: #a0aabf;
+            font-family: monospace;
+            font-size: 1.1rem;
+            background: rgba(0,0,0,0.4);
+            padding: 8px 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 25px;
+        }
+
+        /* زر الدخول الأسطوري */
+        .btn-neon {
+            margin-top: auto;
+            display: inline-block;
+            text-decoration: none;
+            color: #fff;
+            padding: 15px 0;
+            width: 100%;
+            border-radius: 12px;
+            border: 2px solid var(--bot-color);
+            background: transparent;
+            font-weight: 800;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-neon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: var(--bot-color);
+            transition: width 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn-neon:hover::after {
+            width: 100%;
+        }
+
+        .btn-neon:hover {
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px var(--bot-color);
+        }
+
+        /* عداد الزوار */
+        .counter-section {
+            display: flex;
+            justify-content: center;
+            margin: 60px 0;
+        }
+
+        .counter-box {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 30px 60px;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .counter-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255,255,255,0.5);
+            margin-top: 10px;
+        }
+
+        /* الفوتر */
+        footer {
+            text-align: center;
+            padding: 30px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            background: rgba(5, 7, 10, 0.8);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        footer span {
+            color: #fff;
+            font-weight: 800;
+        }
+
+        /* أنيميشن */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* التصميم المتجاوب */
+        @media (max-width: 768px) {
+            h1.main-title { font-size: 3rem; }
+            .dev-badge { flex-direction: column; border-radius: 20px; padding: 20px; }
+            .counter-box { padding: 20px 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- خلفية الجسيمات -->
+    <div id="particles-js"></div>
+
+    <div class="container">
+        
+        <!-- الهيدر -->
+        <header data-aos="zoom-in" data-aos-duration="1200">
+            <div class="logo-container">
+                <i class="fas fa-layer-group logo-icon"></i>
+            </div>
+            <h1 class="main-title">معلوماتي</h1>
+            <p>المنصة التقنية الشاملة لأفضل البوتات، الأدوات البرمجية، والحلول الذكية المصممة خصيصاً لتسهيل مهامك.</p>
+        </header>
+
+        <!-- قسم المطور (تصميم مدمج) -->
+        <div class="dev-badge-container" data-aos="fade-up" data-aos-delay="200">
+            <div class="dev-badge">
+                <span><i class="fas fa-code" style="color:#00f3ff"></i> @far_es_ban</span>
+                <a href="https://t.me/fareshw" target="_blank"><i class="fab fa-telegram" style="color:#00f3ff"></i> القناة الرسمية</a>
+                <a href="https://t.me/ptyhon_py" target="_blank"><i class="fab fa-python" style="color:#ffd43b"></i> مجموعة بايثون</a>
+            </div>
+        </div>
+
+        <h2 class="section-title" data-aos="fade-up">الخدمات والبوتات</h2>
+        
+        <div class="bots-grid">
+            
+            <!-- بوت 1: استضافة 1 (أزرق سيان) -->
+            <div class="bot-card" style="--bot-color: #00f3ff; --bot-color-rgb: 0, 243, 255;" data-aos="fade-up" data-aos-delay="100">
+                <div class="bot-content">
+                    <i class="fas fa-server bot-icon"></i>
+                    <h3>بوت استضافة 1</h3>
+                    <span class="bot-username">@vipfreeqbot</span>
+                    <a href="https://t.me/vipfreeqbot" target="_blank" class="btn-neon">دخول <i class="fas fa-arrow-left" style="margin-right: 5px;"></i></a>
+                </div>
+            </div>
+
+            <!-- بوت 2: استضافة 2 (بنفسجي نيون) -->
+            <div class="bot-card" style="--bot-color: #bc13fe; --bot-color-rgb: 188, 19, 254;" data-aos="fade-up" data-aos-delay="200">
+                <div class="bot-content">
+                    <i class="fas fa-cloud bot-icon"></i>
+                    <h3>بوت استضافة 2</h3>
+                    <span class="bot-username">@Mwksmbot</span>
+                    <a href="https://t.me/Mwksmbot" target="_blank" class="btn-neon">دخول <i class="fas fa-arrow-left" style="margin-right: 5px;"></i></a>
+                </div>
+            </div>
+
+            <!-- بوت 3: التشفير (أخضر زمردي) -->
+            <div class="bot-card" style="--bot-color: #00ff88; --bot-color-rgb: 0, 255, 136;" data-aos="fade-up" data-aos-delay="300">
+                <div class="bot-content">
+                    <i class="fas fa-shield-alt bot-icon"></i>
+                    <h3>تشفير وفك تشفير</h3>
+                    <span class="bot-username">@Nwlwkwwbsobot</span>
+                    <a href="https://t.me/Nwlwkwwbsobot" target="_blank" class="btn-neon">دخول <i class="fas fa-arrow-left" style="margin-right: 5px;"></i></a>
+                </div>
+            </div>
+
+            <!-- بوت 4: اختبار اختراق (أحمر دموي) -->
+            <div class="bot-card" style="--bot-color: #ff3344; --bot-color-rgb: 255, 51, 68;" data-aos="fade-up" data-aos-delay="400">
+                <div class="bot-content">
+                    <i class="fas fa-skull-crossbones bot-icon"></i>
+                    <h3>أدوات اختبار اختراق</h3>
+                    <span class="bot-username">@Hsjsjjsjjsjszksjehrbot</span>
+                    <a href="https://t.me/Hsjsjjsjjsjszksjehrbot" target="_blank" class="btn-neon">دخول <i class="fas fa-arrow-left" style="margin-right: 5px;"></i></a>
+                </div>
+            </div>
+
+            <!-- بوت 5: رمضان (ذهبي/برتقالي) -->
+            <div class="bot-card" style="--bot-color: #ffaa00; --bot-color-rgb: 255, 170, 0;" data-aos="fade-up" data-aos-delay="500">
+                <div class="bot-content">
+                    <i class="fas fa-moon bot-icon"></i>
+                    <h3>بوت إمساكية رمضان</h3>
+                    <span class="bot-username">@hahsnbot</span>
+                    <a href="https://t.me/hahsnbot" target="_blank" class="btn-neon">دخول <i class="fas fa-arrow-left" style="margin-right: 5px;"></i></a>
+                </div>
+            </div>
+
+            <!-- بوت 6: بايثون (أصفر بايثون) -->
+            <div class="bot-card" style="--bot-color: #ffd43b; --bot-color-rgb: 255, 212, 59;" data-aos="fade-up" data-aos-delay="600">
+                <div class="bot-content">
+                    <i class="fab fa-python bot-icon"></i>
+                    <h3>مكتبة أدوات بايثون</h3>
+                    <span class="bot-username">@Nwnwnmwmbot</span>
+                    <a href="https://t.me/Nwnwnmwmbot" target="_blank" class="btn-neon">دخول <i class="fas fa-arrow-left" style="margin-right: 5px;"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- عداد الزوار -->
+        <div class="counter-section" data-aos="zoom-in" data-aos-offset="0">
+            <div class="counter-box">
+                <p style="font-size: 1.3rem; color: var(--text-muted);"><i class="fas fa-chart-line" style="color:#00f3ff"></i> إجمالي زوار المنصة</p>
+                <div class="counter-number" id="visitorCounter">0</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- الفوتر -->
+    <footer>
+        <p>© 2026 <span>معلوماتي</span> - جميع الحقوق محفوظة</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        // تفعيل حركات التمرير
+        AOS.init({
+            once: true,
+            offset: 50,
+            duration: 800
+        });
+
+        // إعدادات خلفية الجسيمات بألوان متعددة تناسب البوتات
+        particlesJS('particles-js', {
+            "particles": {
+                "number": { "value": 50, "density": { "enable": true, "value_area": 1000 } },
+                "color": { "value": ["#00f3ff", "#bc13fe", "#00ff88", "#ff3344", "#ffd43b"] },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.4, "random": true },
+                "size": { "value": 4, "random": true },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.05,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 1.5,
+                    "direction": "none",
+                    "random": true,
+                    "out_mode": "out"
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": { "enable": true, "mode": "bubble" },
+                    "onclick": { "enable": true, "mode": "repulse" }
+                },
+                "modes": {
+                    "bubble": { "distance": 200, "size": 6, "duration": 2, "opacity": 0.8 },
+                    "repulse": { "distance": 200, "duration": 0.4 }
+                }
+            },
+            "retina_detect": true
+        });
+
+        // سكريبت عداد الزوار المتحرك
+        const counterElement = document.getElementById('visitorCounter');
+        let count = 0;
+        const targetCount = 24850; 
+        const speed = 150; 
+
+        const updateCount = () => {
+            const increment = targetCount / speed;
+            if(count < targetCount) {
+                count += increment;
+                counterElement.innerText = Math.ceil(count).toLocaleString();
+                setTimeout(updateCount, 15);
+            } else {
+                counterElement.innerText = targetCount.toLocaleString() + "+";
+            }
+        };
+
+        let counterStarted = false;
+        window.addEventListener('scroll', () => {
+            const sectionPos = counterElement.getBoundingClientRect().top;
+            const screenPos = window.innerHeight;
+            if(sectionPos < screenPos && !counterStarted) {
+                updateCount();
+                counterStarted = true;
+            }
+        });
+    </script>
+</body>
+</html>
